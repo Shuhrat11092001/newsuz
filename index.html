@@ -14,7 +14,7 @@
             --blue:#0b5cff;
             --shadow:0 10px 30px rgba(16,24,40,.08);
             --radius:14px;
-            --container: 1500px;
+            --container:1180px;
         }
 
         *{box-sizing:border-box}
@@ -113,7 +113,7 @@
         .hero{position:relative}
         .hero__img{
             width:100%;
-            height:350px;
+            height:400px;
             display:block;
             object-fit:cover;
             background:#0b1220;
@@ -163,6 +163,7 @@
             align-items:center;
             gap:10px;
             margin:26px 0 12px;
+            justify-content: space-between;
         }
         .sectionhead h3{margin:0;font-size:20px;letter-spacing:-.3px}
         .sectionhead a{color:var(--muted);font-weight:700;font-size:13px}
@@ -202,121 +203,83 @@
         .post--tile .post__title{font-size:13.5px;margin:6px 0 0}
         .post--tile .post__desc{display:none}
 
-        .sitefooter{margin-top:28px;background:#fff;border-top:1px solid var(--line)}
-        .sitefooter__top{
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-            gap:18px;
-            padding:18px 0;
-        }
-        .footnav{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
-        .footnav a{color:#344054;font-weight:700;font-size:13px}
-        .footnav a:hover{text-decoration:underline}
-
-        .footside{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:flex-end}
-        .social{display:flex;align-items:center;gap:10px}
-        .iconbtn{
-            width:38px;height:38px;
-            border-radius:999px;
-            border:1px solid var(--line);
+        .footer{
             background:#fff;
-            display:grid;
-            place-items:center;
+            border-top:1px solid var(--line);
+            margin-top:60px;
+            padding:40px 0 24px;
         }
-        .iconbtn svg{width:18px;height:18px;color:#344054}
+        .footer__inner{display:grid;grid-template-columns: 1.2fr 1fr 1fr;}
+        .footer__brand{display:flex;flex-direction:column;gap:12px}
+        .footer__brand-logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}
+        .footer__brand-logo .brand__logo{width:32px;height:32px;font-size:14px}
+        .footer__brand-logo .brand__text span:first-child{font-size:16px}
+        .footer__brand-logo .brand__text span:last-child{font-size:16px}
+        .footer__brand-desc{font-size:14px;color:#475467;line-height:1.55}
+        .footer__social{display:flex;gap:12px}
+        .footer__social a{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:#f4f6f9;transition:background .2s}
+        .footer__social a:hover{background:#e5e7eb}
+        .footer__social svg{width:20px;height:20px;color:#475467}
 
-        .stores{display:flex;align-items:center;gap:10px}
-        .storebtn{
-            height:38px;
-            padding:0 12px;
-            border-radius:10px;
-            border:1px solid var(--line);
-            background:#fff;
+        .footer__col h4{margin:0 0 12px;font-size:15px;letter-spacing:-.2px}
+        .footer__links{display:flex;flex-direction:column;gap:10px}
+        .footer__links a{color:#475467;font-weight:500;font-size:14px}
+        .footer__links a:hover{color:#111827}
+
+        .footer__apps{display:flex;flex-direction:column;gap:10px}
+        .footer__apps a{display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--line);border-radius:8px;font-weight:600;font-size:13px;transition:all .2s}
+        .footer__apps a:hover{background:#f9fafb}
+        .footer__apps svg{width:16px;height:16px;color:#475467}
+
+        .footer__bottom{
+            margin-top:40px;
+            padding-top:24px;
+            border-top:1px solid var(--line);
             display:flex;
-            align-items:center;
-            gap:10px;
-            font-weight:800;
-            font-size:12px;
-            color:#111827;
-        }
-        .storebtn span{display:block;line-height:1.05}
-        .storebtn small{display:block;font-weight:700;color:#667085;font-size:10.5px}
-        .storebtn svg{width:18px;height:18px}
-
-        .sitefooter__bottom{border-top:1px solid var(--line);padding:14px 0 18px;color:#667085;font-size:12.5px;line-height:1.6}
-        .sitefooter__bottom p{margin:0 0 8px}
-        .sitefooter__bottom p:last-child{margin:0}
-
-        .video{
-            margin:28px 0 0;
-        }
-        .video__head{
-            display:flex;
-            align-items:center;
             justify-content:space-between;
-            gap:14px;
-            margin:24px 0 12px;
-        }
-        .video__title{
-            display:flex;
             align-items:center;
-            gap:10px;
-            font-size:22px;
-            letter-spacing:-.35px;
-            margin:0;
-        }
-        .video__title svg{width:18px;height:18px;color:#98a2b3}
-
-        .video__all{
-            display:flex;
-            align-items:center;
-            gap:10px;
-            font-weight:800;
-            color:#101828;
+            flex-wrap:wrap;
+            gap:12px;
             font-size:13px;
+            color:#6b7280;
         }
-        .video__all .arrow{
-            width:34px;height:34px;
-            border-radius:999px;
-            border:1px solid var(--line);
-            background:#fff;
-            display:grid;
-            place-items:center;
-        }
-        .video__all .arrow svg{width:16px;height:16px}
+        .footer__bottom a{color:var(--blue);font-weight:600}
+        .footer__bottom a:hover{text-decoration:underline}
 
-        .videogrid{
-            display:grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap:18px;
+        .video-news{margin:60px 0}
+        .video-grid{display:grid;grid-template-columns: repeat(4, 1fr);gap:18px}
+        .video-card{overflow:hidden}
+        .video-card__img{position:relative;width:100%;height:180px}
+        .video-card__img img{width:100%;height:100%;object-fit:cover;background:#0b1220}
+        .video-card__play{
+            position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);
+            width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,.2);transition:transform .2s,background .2s
         }
-        .vcard{background:#e6e8ee;border:1px solid #d0d5dd;border-radius:14px;overflow:hidden}
-        .vcard__media{position:relative}
-        .vcard__img{width:100%;height:150px;object-fit:cover;display:block;background:#0b1220}
-        .vcard__play{
-            position:absolute;
-            left:12px;top:12px;
-            width:34px;height:34px;
-            border-radius:999px;
-            background:rgba(255,255,255,.92);
-            border:1px solid rgba(208,213,221,.9);
-            display:grid;
-            place-items:center;
-        }
-        .vcard__play svg{width:14px;height:14px;color:#101828;margin-left:1px}
-
-        .vcard__body{padding:12px 14px 14px}
-        .vcard__body h4{margin:0 0 10px;font-size:15px;line-height:1.22;letter-spacing:-.15px}
-        .vcard__meta{display:flex;gap:8px;color:#667085;font-size:12px;font-weight:650}
+        .video-card__play:hover{transform:translate(-50%, -50%) scale(1.1);background:#fff}
+        .video-card__play svg{width:20px;height:20px;color:#111827;margin-left:2px}
+        .video-card__body{padding:14px 16px}
+        .video-card__title{margin:0 0 8px;font-size:15px;line-height:1.3;letter-spacing:-.2px}
+        .video-card__meta{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px;font-weight:650}
 
         @media (max-width: 1050px){
-            .videogrid{grid-template-columns: repeat(3, minmax(0, 1fr));}
+            .layout{grid-template-columns: 1fr 1.4fr;}
+            .sidebar{grid-column: 1 / -1}
+            .hotgrid{grid-template-columns: 1fr 1fr;}
+            .hotgrid > :first-child{grid-column: 1 / -1;}
+            .twosmall{grid-template-columns:1fr 1fr}
+            .video-grid{grid-template-columns: repeat(2, 1fr)}
         }
-
         @media (max-width: 720px){
-            .videogrid{grid-template-columns: repeat(2, minmax(0, 1fr));}
-            .vcard__img{height:140px}
+            .topbar__row{height:auto;padding:10px 0;flex-wrap:wrap}
+            .nav{flex-basis:100%;flex-wrap:wrap;gap:6px}
+            .layout{grid-template-columns: 1fr}
+            .hero__img{height:240px}
+            .below{grid-template-columns: 1fr}
+            .lead h1{font-size:24px}
+            .hotgrid{grid-template-columns: 1fr}
+            .post--sm{grid-template-columns: 110px 1fr}
+            .twosmall{grid-template-columns:1fr}
+            .video-grid{grid-template-columns: 1fr}
         }
     </style>
 </head>
@@ -414,6 +377,10 @@
                             <p class="item__title">30 dekabrdan barcha «metan zapravkalar» 24 soatlik ish rejimida ishlaydi – Energetika vazirligi</p>
                             <div class="item__meta"><span>O‘zbekiston</span><span class="sep">|</span><span>21:13</span></div>
                         </a>
+                        <a class="item" href="#">
+                            <p class="item__title">2025 yil o‘zbek so‘mi uchun qanday o‘tdi?</p>
+                            <div class="item__meta"><span>Iqtisodiyot</span><span class="sep">|</span><span>20:45</span></div>
+                        </a>
                     </div>
                 </aside>
             </section>
@@ -483,7 +450,7 @@
 
                         <div class="twosmall">
                             <article class="card post post--tile">
-                                <img class="post__img" alt="News" src="https://images.unsplash.com/photo-1520975897033-4eab2c0b45b1?auto=format&fit=crop&w=1200&q=70">
+                                <img class="post__img" alt="News" src="https://images.unsplash.com/photo-1520975693411-b409f2a4dbb1?auto=format&fit=crop&w=1200&q=70">
                                 <div class="post__body">
                                     <div class="post__meta"><span>O‘zbekiston</span><span class="sep">|</span><span>18:38</span></div>
                                     <h4 class="post__title">Suhbat: dolzarb mavzu bo‘yicha izohlar</h4>
@@ -496,182 +463,151 @@
                                     <h4 class="post__title">Intervyu: yangi qarorlar va rejalari</h4>
                                 </div>
                             </article>
+
+                            <div class="twosmall">
+                                <article class="card post post--tile">
+                                    <img class="post__img" alt="News" src="https://images.unsplash.com/photo-1520975693411-b409f2a4dbb1?auto=format&fit=crop&w=1200&q=70">
+                                    <div class="post__body">
+                                        <div class="post__meta"><span>O‘zbekiston</span><span class="sep">|</span><span>18:38</span></div>
+                                        <h4 class="post__title">Suhbat: dolzarb mavzu bo‘yicha izohlar</h4>
+                                    </div>
+                                </article>
+                                <article class="card post post--tile">
+                                    <img class="post__img" alt="News" src="https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa?auto=format&fit=crop&w=1200&q=70">
+                                    <div class="post__body">
+                                        <div class="post__meta"><span>O‘zbekiston</span><span class="sep">|</span><span>18:12</span></div>
+                                        <h4 class="post__title">Intervyu: yangi qarorlar va rejalari</h4>
+                                    </div>
+                                </article>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-
-            <section class="video" aria-label="Video yangiliklar">
-                <div class="video__head">
-                    <h3 class="video__title">
-                        Barcha yangiliklar
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 5h5v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 14 19 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </h3>
-
-                    <a class="video__all" href="#" aria-label="Barchasi">
-                        <span class="arrow" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </span>
-                        Barchasi
-                    </a>
-                </div>
-
-                <div class="videogrid">
-                    <article class="vcard">
-                        <div class="vcard__media">
-                            <img class="vcard__img" alt="Video" src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1200&q=70">
-                            <span class="vcard__play" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V6l10 6-10 6Z"/></svg>
-                            </span>
-                        </div>
-                        <div class="vcard__body">
-                            <h4>Tayvan - Xitoy biqinidagi «porox bochkasi»</h4>
-                            <div class="vcard__meta"><span>Jahon</span><span class="sep">|</span><span>19:42</span></div>
-                        </div>
-                    </article>
-
-                    <article class="vcard">
-                        <div class="vcard__media">
-                            <img class="vcard__img" alt="Video" src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1200&q=70">
-                            <span class="vcard__play" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V6l10 6-10 6Z"/></svg>
-                            </span>
-                        </div>
-                        <div class="vcard__body">
-                            <h4>Trampga va’da bergan Putin, Tayvan atrofida mashg‘ulot boshlandi</h4>
-                            <div class="vcard__meta"><span>Jahon</span><span class="sep">|</span><span>16:06</span></div>
-                        </div>
-                    </article>
-
-                    <article class="vcard">
-                        <div class="vcard__media">
-                            <img class="vcard__img" alt="Video" src="https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa?auto=format&fit=crop&w=1200&q=70">
-                            <span class="vcard__play" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V6l10 6-10 6Z"/></svg>
-                            </span>
-                        </div>
-                        <div class="vcard__body">
-                            <h4>LIVE: Katta kuchlar, kichik davlatlar va yo‘qolayotgan qoidalar | “Geosiyosat”</h4>
-                            <div class="vcard__meta"><span>Jahon</span><span class="sep">|</span><span>14:20</span></div>
-                        </div>
-                    </article>
-
-                    <article class="vcard">
-                        <div class="vcard__media">
-                            <img class="vcard__img" alt="Video" src="https://images.unsplash.com/photo-1523995462485-3d171b5c8fa9?auto=format&fit=crop&w=1200&q=70">
-                            <span class="vcard__play" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V6l10 6-10 6Z"/></svg>
-                            </span>
-                        </div>
-                        <div class="vcard__body">
-                            <h4>Ukrainlarning bayram «tilagi», namoz o‘qiyotgan falastinlikka hujum – hafta dayjesti</h4>
-                            <div class="vcard__meta"><span>Jahon</span><span class="sep">|</span><span>22:05</span></div>
-                        </div>
-                    </article>
-
-                    <article class="vcard">
-                        <div class="vcard__media">
-                            <img class="vcard__img" alt="Video" src="https://images.unsplash.com/photo-1590608897129-79da98d15969?auto=format&fit=crop&w=1200&q=70">
-                            <span class="vcard__play" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V6l10 6-10 6Z"/></svg>
-                            </span>
-                        </div>
-                        <div class="vcard__body">
-                            <h4>Videodayjest: haftaning asosiy voqealari</h4>
-                            <div class="vcard__meta"><span>O‘zbekiston</span><span class="sep">|</span><span>11:30</span></div>
-                        </div>
-                    </article>
-
-                    <article class="vcard">
-                        <div class="vcard__media">
-                            <img class="vcard__img" alt="Video" src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=70">
-                            <span class="vcard__play" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V6l10 6-10 6Z"/></svg>
-                            </span>
-                        </div>
-                        <div class="vcard__body">
-                            <h4>Intervyu: yangi qarorlar va rejalari</h4>
-                            <div class="vcard__meta"><span>Iqtisodiyot</span><span class="sep">|</span><span>10:10</span></div>
-                        </div>
-                    </article>
-
-                    <article class="vcard">
-                        <div class="vcard__media">
-                            <img class="vcard__img" alt="Video" src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=1200&q=70">
-                            <span class="vcard__play" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V6l10 6-10 6Z"/></svg>
-                            </span>
-                        </div>
-                        <div class="vcard__body">
-                            <h4>Texnologiya: yangi qurilmalar va yangiliklar</h4>
-                            <div class="vcard__meta"><span>Texnologiya</span><span class="sep">|</span><span>09:20</span></div>
-                        </div>
-                    </article>
-
-                    <article class="vcard">
-                        <div class="vcard__media">
-                            <img class="vcard__img" alt="Video" src="https://images.unsplash.com/photo-1520975897033-4eab2c0b45b1?auto=format&fit=crop&w=1200&q=70">
-                            <span class="vcard__play" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V6l10 6-10 6Z"/></svg>
-                            </span>
-                        </div>
-                        <div class="vcard__body">
-                            <h4>Jamiyat: dolzarb mavzular bo‘yicha videolar</h4>
-                            <div class="vcard__meta"><span>Jamiyat</span><span class="sep">|</span><span>08:55</span></div>
-                        </div>
-                    </article>
                 </div>
             </section>
         </div>
     </main>
 
-    <footer class="sitefooter" aria-label="Footer">
+    <section class="video-news">
         <div class="container">
-            <div class="sitefooter__top">
-                <a class="brand" href="#" aria-label="KUN.UZ">
-                    <div class="brand__text"><span>KUN</span><span>.UZ</span></div>
-                </a>
+            <div class="sectionhead">
+                <h3>Barcha yangiliklar</h3>
+                <a href="#">Barchasi <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 17l5-5-5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path><path d="M19 12H5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg></a>
+            </div>
 
-                <nav class="footnav" aria-label="Footer links">
-                    <a href="#">Sayt haqida</a>
-                    <a href="#">RSS</a>
-                    <a href="#">Aloqa</a>
-                    <a href="#">Reklama</a>
-                    <a href="#">Kun.uz jamoasi</a>
-                </nav>
+            <div class="video-grid">
+                <article class="card video-card">
+                    <div class="video-card__img">
+                        <img src="https://images.unsplash.com/photo-1593642532744-d377ab507dc8?auto=format&fit=crop&w=1600&q=70" alt="Video thumbnail">
+                        <div class="video-card__play">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="video-card__body">
+                        <h4 class="video-card__title">Tayvan - Xitoy biqinidagi «porox bochkasi»</h4>
+                        <div class="video-card__meta"><span>Jahon</span><span class="sep">|</span><span>19:42</span></div>
+                    </div>
+                </article>
 
-                <div class="footside">
-                    <div class="social" aria-label="Social">
-                        <a class="iconbtn" href="#" aria-label="Telegram">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z" stroke="currentColor" stroke-width="1.2"/><path d="M2 12h20" stroke="currentColor" stroke-width="1.2"/><path d="M12 2c2.761 2.739 4 6.169 4 10s-1.239 7.261-4 10c-2.761-2.739-4-6.169-4-10s1.239-7.261 4-10Z" stroke="currentColor" stroke-width="1.2"/></svg>
+                <article class="card video-card">
+                    <div class="video-card__img">
+                        <img src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1600&q=70" alt="Video thumbnail">
+                        <div class="video-card__play">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="video-card__body">
+                        <h4 class="video-card__title">Trampga va'da bergan Putin, Tayvan atrofida mashg'ulot boshlagan Xitoy va yana raketalar uchirgan Kim – kun dayjesti</h4>
+                        <div class="video-card__meta"><span>Jahon</span><span class="sep">|</span><span>16:06</span></div>
+                    </div>
+                </article>
+
+                <article class="card video-card">
+                    <div class="video-card__img">
+                        <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1600&q=70" alt="Video thumbnail">
+                        <div class="video-card__play">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="video-card__body">
+                        <h4 class="video-card__title">O'zbekistonda 2025 yilda qanday o'zgarishlar bo'ladi?</h4>
+                        <div class="video-card__meta"><span>O'zbekiston</span><span class="sep">|</span><span>14:30</span></div>
+                    </div>
+                </article>
+
+                <article class="card video-card">
+                    <div class="video-card__img">
+                        <img src="https://images.unsplash.com/photo-1523995462485-3d171b5c8fa9?auto=format&fit=crop&w=1600&q=70" alt="Video thumbnail">
+                        <div class="video-card__play">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>
+                        </div>
+                    </div>
+                    <div class="video-card__body">
+                        <h4 class="video-card__title">Iqtisodiyot: yangi imkoniyatlar va istiqbollar</h4>
+                        <div class="video-card__meta"><span>Iqtisodiyot</span><span class="sep">|</span><span>12:15</span></div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__inner">
+                <div class="footer__brand">
+                    <a class="footer__brand-logo brand" href="#">
+                        <div class="brand__logo">K</div>
+                        <div class="brand__text"><span>KUN</span><span>.UZ</span></div>
+                    </a>
+                    <p class="footer__brand-desc">
+                        O‘zbekiston va jahon yangiliklari, tezkor va ishonchli ma’lumotlar, tahlillar va intervyular.
+                    </p>
+                    <div class="footer__social">
+                        <a href="#" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                         </a>
-                        <a class="iconbtn" href="#" aria-label="Facebook">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h2.3l.7-3H13V9c0-.6.4-1 1-1Z" fill="currentColor"/></svg>
+                        <a href="#" aria-label="Telegram">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.56-1.46 6.87c-.11.49-.4.61-.81.38l-2.25-1.65-1.09 1.05c-.12.12-.22.22-.43.22l.15-2.44 4.16-3.76c.18-.16-.04-.25-.28-.09l-5.14 3.24-2.22-.69c-.48-.15-.49-.48.1-.71l8.67-3.34c.4-.14.75.09.62.71z"/></svg>
                         </a>
-                        <a class="iconbtn" href="#" aria-label="Twitter">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.7 7.2c.01.18.01.37.01.55 0 5.6-4.26 12.05-12.05 12.05-2.39 0-4.61-.7-6.48-1.9.33.04.66.05 1 .05 1.98 0 3.8-.67 5.24-1.8-1.85-.03-3.41-1.26-3.95-2.94.26.04.52.07.8.07.37 0 .74-.05 1.08-.14-1.93-.39-3.38-2.09-3.38-4.13v-.05c.56.31 1.2.5 1.88.52-1.13-.76-1.87-2.06-1.87-3.53 0-.78.21-1.5.58-2.13 2.06 2.53 5.14 4.19 8.6 4.36-.07-.31-.11-.64-.11-.97 0-2.35 1.9-4.25 4.25-4.25 1.22 0 2.32.52 3.1 1.34.96-.19 1.86-.54 2.67-1.03-.31.98-.98 1.8-1.85 2.32.86-.1 1.67-.33 2.43-.66-.57.85-1.29 1.6-2.12 2.2Z" fill="currentColor"/></svg>
+                        <a href="#" aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L16 12l-6.455 3.568z"/></svg>
                         </a>
-                        <a class="iconbtn" href="#" aria-label="Instagram">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor" stroke-width="1.6"/><path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" stroke-width="1.6"/><path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+                        <a href="#" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.059-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.405a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z"/></svg>
                         </a>
                     </div>
+                </div>
 
-                    <div class="stores" aria-label="Stores">
-                        <a class="storebtn" href="#" aria-label="App Store">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.6 13.1c0 2.4 2.1 3.2 2.1 3.2s-1.6 4.7-3.8 4.7c-1 0-1.7-.7-2.7-.7s-1.9.7-3 .7C7.3 21 5 16.7 5 13.5 5 10.4 7 8.7 9 8.7c1 0 1.9.7 2.6.7.7 0 1.8-.8 3.1-.8.5 0 2.2.04 3.3 1.7-.1.06-2 .9-2 2.8Zm-2.4-6.1c.8-1 1.4-2.4 1.2-3.8-1.2.05-2.7.8-3.6 1.8-.8.9-1.5 2.3-1.3 3.7 1.3.1 2.8-.7 3.7-1.7Z" fill="currentColor"/></svg>
-                            <span><small>Download on the</small>App Store</span>
+                <div class="footer__col">
+                    <h4>Qo‘llanma</h4>
+                    <div class="footer__links">
+                        <a href="#">Sayt haqida</a>
+                        <a href="#">Foydalanish shartlari</a>
+                        <a href="#">Maxfiylik siyosati</a>
+                        <a href="#">Reklama</a>
+                        <a href="#">Biz bilan bog‘lanish</a>
+                    </div>
+                </div>
+
+                <div class="footer__col">
+                    <h4>Mobil ilova</h4>
+                    <div class="footer__apps">
+                        <a href="#">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                            App Store
                         </a>
-                        <a class="storebtn" href="#" aria-label="Google Play">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.7 3.4c-.4.4-.6 1-.6 1.8v13.6c0 .8.2 1.4.6 1.8l8.4-8.4L4.7 3.4Z" fill="#34A853"/><path d="M14.3 13.4l2.3-2.3c.7-.7.7-1.6 0-2.3l-2.3-2.3-2.6 2.6 2.6 2.6Z" fill="#FBBC05"/><path d="M4.7 20.6c.5.5 1.2.5 2.2-.1l9.3-5.3-2.9-2.9-8.6 8.3Z" fill="#EA4335"/><path d="M6.9 3.5c-1-.6-1.7-.6-2.2-.1l8.4 8.4 2.9-2.9-9.1-5.4Z" fill="#4285F4"/></svg>
-                            <span><small>GET IT ON</small>Google Play</span>
+                        <a href="#">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l1.78 1.78-7.24 7.24L5.46 18.27l9.04-5.563zm2.817 2.817l3.03 1.74c.84.49.84 1.71 0 2.19l-3.03 1.74-3.78-3.78 3.78-3.89zm-7.54 7.54l7.24-7.24 1.78 1.78-9.02 5.46z"/></svg>
+                            Google Play
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="sitefooter__bottom">
-                <p>“KUN.UZ” saytida e’lon qilingan materiallardan nusxa ko‘chirish, tarqatish va boshqa shakllarda foydalanish faqat tahririyat yozma roziligi bilan amalga oshirilishi mumkin.</p>
-                <p>Guvohnoma: №098. Berilgan sanasi: 22.06.2015-yil. MChJ. Tahririyat manzili: 100043, Toshkent shahri, Y. G‘ulomov ko‘chasi, 12-uy.</p>
+            <div class="footer__bottom">
+                <div> 2025 KUN.UZ. </div>
+                <div>
+                    <a href="mailto:info@kun.uz">info@kun.uz</a> | <a href="tel:+9987815006300">+998 78 150 63 00</a>
+                </div>
             </div>
         </div>
     </footer>
