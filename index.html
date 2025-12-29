@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News</title>
+    <style>
+        :root{
+            --bg:#f4f6f9;
+            --card:#ffffff;
+            --text:#101828;
+            --muted:#667085;
+            --line:#eaecf0;
+            --blue:#0b5cff;
+            --shadow:0 10px 30px rgba(16,24,40,.08);
+            --radius:14px;
+            --container: 1500px;
+        }
+
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0;
+            font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+            color:var(--text);
+            background:var(--bg);
+        }
+
+        a{color:inherit;text-decoration:none}
+        .container{max-width:var(--container);margin:0 auto;padding:0 18px}
+
+        .topbar{
+            position:sticky;
+            top:0;
+            z-index:50;
+            background:rgba(255,255,255,.88);
+            backdrop-filter:saturate(180%) blur(10px);
+            border-bottom:1px solid var(--line);
+        }
+        .topbar__row{display:flex;align-items:center;gap:18px;height:64px}
+        .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.2px}
+        .brand__logo{
+            width:42px;height:42px;border-radius:50%;
+            background:radial-gradient(circle at 30% 30%, #2f80ff, #0b5cff 60%, #083aa7);
+            display:grid;place-items:center;color:#fff;font-weight:900;
+            box-shadow:0 10px 20px rgba(11,92,255,.25);
+        }
+        .brand__text{display:flex;align-items:baseline;gap:4px}
+        .brand__text span:first-child{font-size:18px}
+        .brand__text span:last-child{font-size:18px;color:var(--blue)}
+
+        .nav{display:flex;align-items:center;gap:16px;flex:1;min-width:0}
+        .nav a{
+            padding:10px 10px;
+            border-radius:10px;
+            font-weight:650;
+            color:#111827;
+            white-space:nowrap;
+        }
+        .nav a:hover{background:#f2f4f7}
+
+        .actions{display:flex;align-items:center;gap:10px}
+        .chip{
+            display:flex;align-items:center;gap:8px;
+            height:40px;
+            padding:0 12px;
+            border:1px solid var(--line);
+            background:#fff;
+            border-radius:999px;
+            color:#111827;
+            font-weight:600;
+        }
+        .chip svg{width:18px;height:18px;color:#475467}
+
+        .subnav{
+            background:#fff;
+            border-bottom:1px solid var(--line);
+        }
+        .subnav__row{display:flex;align-items:center;gap:10px;overflow:auto;scrollbar-width:none;height:44px}
+        .subnav__row::-webkit-scrollbar{display:none}
+        .subnav a{
+            padding:8px 12px;
+            border-radius:999px;
+            color:#344054;
+            font-weight:650;
+            white-space:nowrap;
+        }
+        .subnav a:hover{background:#f2f4f7}
+
+        .page{padding:18px 0 40px}
+        .layout{
+            display:grid;
+            grid-template-columns: 1.2fr 1.6fr .95fr;
+            gap:18px;
+            align-items:start;
+        }
+
+        .card{
+            background:var(--card);
+            border:1px solid var(--line);
+            border-radius:var(--radius);
+            box-shadow:var(--shadow);
+            overflow:hidden;
+        }
+
+        .lead{padding:18px}
+        .kicker{display:flex;align-items:center;gap:8px;color:var(--muted);font-weight:650;font-size:13px}
+        .dot{width:6px;height:6px;border-radius:50%;background:var(--blue)}
+        .lead h1{margin:10px 0 10px;font-size:30px;line-height:1.08;letter-spacing:-.3px}
+        .lead p{margin:0;color:#475467;line-height:1.55;font-size:14px}
+        .lead__footer{margin-top:14px;display:flex;align-items:center;gap:12px;color:var(--muted);font-size:13px}
+
+        .hero{position:relative}
+        .hero__img{
+            width:100%;
+            height:350px;
+            display:block;
+            object-fit:cover;
+            background:#0b1220;
+        }
+        .hero__overlay{
+            position:absolute;inset:0;
+            background:linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.55));
+        }
+        .hero__badge{
+            position:absolute;left:16px;top:16px;
+            background:rgba(255,255,255,.92);
+            border:1px solid rgba(234,236,240,.8);
+            padding:8px 10px;
+            border-radius:999px;
+            font-weight:750;
+            font-size:12px;
+            color:#111827;
+        }
+        .hero__caption{
+            position:absolute;left:16px;right:16px;bottom:16px;
+            color:#fff;
+        }
+        .hero__caption h2{margin:0 0 6px;font-size:18px;letter-spacing:-.2px}
+        .hero__caption div{color:rgba(255,255,255,.82);font-size:13px}
+
+        .sidebar{padding:16px}
+        .sidebar h3{margin:0 0 12px;font-size:16px;letter-spacing:-.2px}
+        .newslist{display:flex;flex-direction:column;gap:12px}
+        .item{padding:12px;border:1px solid var(--line);border-radius:12px;background:#fff}
+        .item:hover{background:#f9fafb}
+        .item__title{margin:0 0 6px;font-weight:750;font-size:13.5px;line-height:1.25}
+        .item__meta{display:flex;gap:8px;color:var(--muted);font-size:12px}
+        .sep{opacity:.5}
+
+        .below{
+            margin-top:18px;
+            display:grid;
+            grid-template-columns: 1fr 1fr;
+            gap:18px;
+        }
+        .small{padding:16px}
+        .small h4{margin:0 0 10px;font-size:15px;letter-spacing:-.2px}
+        .small p{margin:0;color:#475467;line-height:1.55;font-size:13.5px}
+
+        .sectionhead{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            margin:26px 0 12px;
+        }
+        .sectionhead h3{margin:0;font-size:20px;letter-spacing:-.3px}
+        .sectionhead a{color:var(--muted);font-weight:700;font-size:13px}
+
+        .hotgrid{
+            display:grid;
+            grid-template-columns: 1.55fr 1fr 1fr;
+            gap:18px;
+        }
+        .post{overflow:hidden}
+        .post__img{width:100%;display:block;object-fit:cover;background:#0b1220}
+        .post__body{padding:14px 16px}
+        .post__meta{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:12px;font-weight:650}
+        .post__title{margin:8px 0 8px;font-size:18px;line-height:1.18;letter-spacing:-.2px}
+        .post__desc{margin:0;color:#475467;font-size:13.5px;line-height:1.55}
+
+        .post--big .post__img{height:270px}
+        .post--big .post__title{font-size:20px}
+
+        .stack{display:flex;flex-direction:column;gap:18px}
+        .post--mid .post__img{height:150px}
+        .post--sm{display:grid;grid-template-columns:140px 1fr;gap:12px;align-items:stretch}
+        .post--sm .post__img{height:100%;min-height:94px}
+        .post--sm .post__body{padding:10px 12px}
+        .post--sm .post__title{font-size:13.5px;margin:6px 0 0}
+        .post--sm .post__desc{display:none}
+
+        .mini-list{padding:10px 0 0;margin:0;list-style:none}
+        .mini-list li{border-top:1px solid var(--line)}
+        .mini-list a{display:block;padding:12px 0}
+        .mini-list .t{margin:0 0 6px;font-weight:750;font-size:13px;line-height:1.25}
+        .mini-list .m{color:var(--muted);font-size:12px;font-weight:650}
+
+        .rightgrid{display:grid;grid-template-columns: 1fr;gap:18px}
+        .twosmall{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+        .post--tile .post__img{height:120px}
+        .post--tile .post__title{font-size:13.5px;margin:6px 0 0}
+        .post--tile .post__desc{display:none}
+
+        .sitefooter{margin-top:28px;background:#fff;border-top:1px solid var(--line)}
+        .sitefooter__top{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:18px;
+            padding:18px 0;
+        }
+        .footnav{display:flex;flex-wrap:wrap;gap:18px;align-items:center}
+        .footnav a{color:#344054;font-weight:700;font-size:13px}
+        .footnav a:hover{text-decoration:underline}
+
+        .footside{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:flex-end}
+        .social{display:flex;align-items:center;gap:10px}
+        .iconbtn{
+            width:38px;height:38px;
+            border-radius:999px;
+            border:1px solid var(--line);
+            background:#fff;
+            display:grid;
+            place-items:center;
+        }
+        .iconbtn svg{width:18px;height:18px;color:#344054}
+
+        .stores{display:flex;align-items:center;gap:10px}
+        .storebtn{
+            height:38px;
+            padding:0 12px;
+            border-radius:10px;
+            border:1px solid var(--line);
+            background:#fff;
+            display:flex;
+            align-items:center;
+            gap:10px;
+            font-weight:800;
+            font-size:12px;
+            color:#111827;
+        }
+        .storebtn span{display:block;line-height:1.05}
+        .storebtn small{display:block;font-weight:700;color:#667085;font-size:10.5px}
+        .storebtn svg{width:18px;height:18px}
+
+        .sitefooter__bottom{border-top:1px solid var(--line);padding:14px 0 18px;color:#667085;font-size:12.5px;line-height:1.6}
+        .sitefooter__bottom p{margin:0 0 8px}
+        .sitefooter__bottom p:last-child{margin:0}
+
+        .video{
+            margin:28px 0 0;
+        }
+        .video__head{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:14px;
+            margin:24px 0 12px;
+        }
+        .video__title{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            font-size:22px;
+            letter-spacing:-.35px;
+            margin:0;
+        }
+        .video__title svg{width:18px;height:18px;color:#98a2b3}
+
+        .video__all{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            font-weight:800;
+            color:#101828;
+            font-size:13px;
+        }
+        .video__all .arrow{
+            width:34px;height:34px;
+            border-radius:999px;
+            border:1px solid var(--line);
+            background:#fff;
+            display:grid;
+            place-items:center;
+        }
+        .video__all .arrow svg{width:16px;height:16px}
+
+        .videogrid{
+            display:grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap:18px;
+        }
+        .vcard{background:#e6e8ee;border:1px solid #d0d5dd;border-radius:14px;overflow:hidden}
+        .vcard__media{position:relative}
+        .vcard__img{width:100%;height:150px;object-fit:cover;display:block;background:#0b1220}
+        .vcard__play{
+            position:absolute;
+            left:12px;top:12px;
+            width:34px;height:34px;
+            border-radius:999px;
+            background:rgba(255,255,255,.92);
+            border:1px solid rgba(208,213,221,.9);
+            display:grid;
+            place-items:center;
+        }
+        .vcard__play svg{width:14px;height:14px;color:#101828;margin-left:1px}
+
+        .vcard__body{padding:12px 14px 14px}
+        .vcard__body h4{margin:0 0 10px;font-size:15px;line-height:1.22;letter-spacing:-.15px}
+        .vcard__meta{display:flex;gap:8px;color:#667085;font-size:12px;font-weight:650}
+
+        @media (max-width: 1050px){
+            .videogrid{grid-template-columns: repeat(3, minmax(0, 1fr));}
+        }
+
+        @media (max-width: 720px){
+            .videogrid{grid-template-columns: repeat(2, minmax(0, 1fr));}
+            .vcard__img{height:140px}
+        }
+    </style>
+</head>
+<body>
+
+    <header class="topbar">
+        <div class="container">
+            <div class="topbar__row">
+                <a class="brand" href="#">
+                    <div class="brand__logo">K</div>
+                    <div class="brand__text"><span>KUN</span><span>.UZ</span></div>
+                </a>
+
+                <nav class="nav" aria-label="Primary">
+                    <a href="#">O‘zbekiston</a>
+                    <a href="#">Jahon</a>
+                    <a href="#">Iqtisodiyot</a>
+                    <a href="#">Jamiyat</a>
+                    <a href="#">Sport</a>
+                    <a href="#">Texnologiya</a>
+                    <a href="#">Audio</a>
+                </nav>
+
+                <div class="actions">
+                    <a class="chip" href="#" aria-label="Language">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z" stroke="currentColor" stroke-width="1.6"/><path d="M2 12h20" stroke="currentColor" stroke-width="1.6"/><path d="M12 2c2.761 2.739 4 6.169 4 10s-1.239 7.261-4 10c-2.761-2.739-4-6.169-4-10s1.239-7.261 4-10Z" stroke="currentColor" stroke-width="1.6"/></svg>
+                        O‘zbekcha
+                    </a>
+                    <a class="chip" href="#" aria-label="Search">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16Z" stroke="currentColor" stroke-width="1.6"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    </a>
+                    <a class="chip" href="#" aria-label="Menu">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="subnav">
+        <div class="container">
+            <nav class="subnav__row" aria-label="Secondary">
+                <a href="#">Ta’lim</a>
+                <a href="#">Moliya</a>
+                <a href="#">Avto</a>
+                <a href="#">Sog‘lom hayot</a>
+                <a href="#">Ko‘chmas mulk</a>
+                <a href="#">Ayollar dunyosi</a>
+                <a href="#">Turizm</a>
+                <a href="#">Biznes</a>
+            </nav>
+        </div>
+    </div>
+
+    <main class="page">
+        <div class="container">
+            <section class="layout" aria-label="News layout">
+                <article class="card lead">
+                    <div class="kicker"><span class="dot"></span> Jamiyat</div>
+                    <h1>2026 yilgi rejalar, yangi gaz koni va budjetning yopiq muhokamasi - hafta dayjesti</h1>
+                    <p>
+                        “Quloğimga ko‘p gaplar kelayapti”: prezident korrupsiyaga qarshi yangi tizim qilishga majbur bo‘lganini aytdi.
+                        Sud tizimini yopib qo‘ysa: nohaq hukm chiqargan sudyalar ishdan haydaladi.
+                        Deputatlar budjetdagi o‘zgarishlarni soliq to‘lovchilardan yashirdi: gap milliardlab dollarlari haqida...
+                    </p>
+                    <div class="lead__footer">
+                        <span>O‘zbekiston</span>
+                        <span class="sep">|</span>
+                        <span>22:46</span>
+                    </div>
+                </article>
+
+                <section class="card hero" aria-label="Hero news">
+                    <img class="hero__img" alt="Hero" src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1600&q=70">
+                    <div class="hero__overlay" aria-hidden="true"></div>
+                    <div class="hero__badge">#DAYJEST</div>
+                    <div class="hero__caption">
+                        <h2>Muhim voqealar va haftaning asosiy sarlavhalari</h2>
+                        <div>Kun.uz uslubida yangiliklar to‘plami</div>
+                    </div>
+                </section>
+
+                <aside class="card sidebar" aria-label="Latest news">
+                    <h3>So‘nggi yangiliklar</h3>
+                    <div class="newslist">
+                        <a class="item" href="#">
+                            <p class="item__title">Istanbuldan Samarqandga uchgan samolyot mast yo‘lovchi tufayli favqulodda qo‘ndi</p>
+                            <div class="item__meta"><span>O‘zbekiston</span><span class="sep">|</span><span>22:46</span></div>
+                        </a>
+                        <a class="item" href="#">
+                            <p class="item__title">Rossiya Ukrainani Putinning qarorgohiga hujum qilganlikda aybladi</p>
+                            <div class="item__meta"><span>Jahon</span><span class="sep">|</span><span>22:15</span></div>
+                        </a>
+                        <a class="item" href="#">
+                            <p class="item__title">30 dekabrdan barcha «metan zapravkalar» 24 soatlik ish rejimida ishlaydi – Energetika vazirligi</p>
+                            <div class="item__meta"><span>O‘zbekiston</span><span class="sep">|</span><span>21:13</span></div>
+                        </a>
+                    </div>
+                </aside>
+            </section>
+
+            <section class="below" aria-label="More blocks">
+                <article class="card small">
+                    <h4>Muharrir tanlovi</h4>
+                    <p>Kun davomida eng ko‘p o‘qilgan va muhim deb topilgan materiallar jamlanmasi.</p>
+                </article>
+                <article class="card small">
+                    <h4>Kun mavzusi</h4>
+                    <p>Dolzarb mavzu bo‘yicha tahlil, izoh va ekspert fikrlari.</p>
+                </article>
+            </section>
+
+            <section aria-label="Dolzarb xabarlar">
+                <div class="sectionhead">
+                    <h3>Dolzarb xabarlar</h3>
+                    <a href="#">Barchasi</a>
+                </div>
+
+                <div class="hotgrid">
+                    <article class="card post post--big">
+                        <img class="post__img" alt="News" src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=1600&q=70">
+                        <div class="post__body">
+                            <div class="post__meta"><span>Jahon</span><span class="sep">|</span><span>13:56</span></div>
+                            <h4 class="post__title">Xitoy Tayvan atrofida mashg‘ulot boshladi: harbiylar orolni blokada qilishni sinovdan o‘tkazadi</h4>
+                            <p class="post__desc">Dushanba tongida Xitoy Tayvan atrofida «Adolat missiyasi–2025» yirik harbiy mashg‘ulotlarini boshladi. Harbiylar orolni o‘rab turgan dengiz va havo hududida real o‘q otish mashqlarini o‘tkazadi.</p>
+                        </div>
+                    </article>
+
+                    <div class="stack" aria-label="Middle column">
+                        <article class="card post post--mid">
+                            <img class="post__img" alt="News" src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1600&q=70">
+                            <div class="post__body">
+                                <div class="post__meta"><span>Jahon</span><span class="sep">|</span><span>18:00</span></div>
+                                <h4 class="post__title">Oshig‘i olchi firibgarlar, aldanaveradigan odamlar va ko‘z-yoshlar to‘kilgunicha tomoshabin</h4>
+                            </div>
+                        </article>
+
+                        <div class="card" style="padding:16px">
+                            <ul class="mini-list">
+                                <li>
+                                    <a href="#">
+                                        <p class="t">“Tizimimiz ancha eskirib qoldi” – Prezident korrupsiyaga qarshi yangi tizim haqida e’lon qildi</p>
+                                        <div class="m">O‘zbekiston <span class="sep">|</span> 17:11</div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <p class="t">Ishga tushadigan “eskrоn”, tibbiyot xodimlariga imtiyoz va boshlanadigan “eko-stiker”lar davri – 1 yanvardan nimalar o‘zgaradi?</p>
+                                        <div class="m">O‘zbekiston <span class="sep">|</span> 15:57</div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="rightgrid" aria-label="Right column">
+                        <article class="card post post--mid">
+                            <img class="post__img" alt="News" src="https://images.unsplash.com/photo-1523995462485-3d171b5c8fa9?auto=format&fit=crop&w=1600&q=70">
+                            <div class="post__body">
+                                <div class="post__meta"><span>Jahon</span><span class="sep">|</span><span>21:44</span></div>
+                                <h4 class="post__title">«Rossiya Ukraina, Qozog‘iston va Kavkazni berib yuborgan». AQSh Putin va Bushning muzokaralari rasshifrovkasini maxfiylikdan chiqardi</h4>
+                            </div>
+                        </article>
+
+                        <div class="twosmall">
+                            <article class="card post post--tile">
+                                <img class="post__img" alt="News" src="https://images.unsplash.com/photo-1520975897033-4eab2c0b45b1?auto=format&fit=crop&w=1200&q=70">
+                                <div class="post__body">
+                                    <div class="post__meta"><span>O‘zbekiston</span><span class="sep">|</span><span>18:38</span></div>
+                                    <h4 class="post__title">Suhbat: dolzarb mavzu bo‘yicha izohlar</h4>
+                                </div>
+                            </article>
+                            <article class="card post post--tile">
+                                <img class="post__img" alt="News" src="https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa?auto=format&fit=crop&w=1200&q=70">
+                                <div class="post__body">
+                                    <div class="post__meta"><span>O‘zbekiston</span><span class="sep">|</span><span>18:12</span></div>
+                                    <h4 class="post__title">Intervyu: yangi qarorlar va rejalari</h4>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="video" aria-label="Video yangiliklar">
+                <div class="video__head">
+                    <h3 class="video__title">
+                        Barcha yangiliklar
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 5h5v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 14 19 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </h3>
+
+                    <a class="video__all" href="#" aria-label="Barchasi">
+                        <span class="arrow" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </span>
+                        Barchasi
+                    </a>
+                </div>
+
+                <div class="videogrid">
+                    <article class="vcard">
+                        <div class="vcard__media">
+                            <img class="vcard__img" alt="Video" src="https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?auto=format&fit=crop&w=1200&q=70">
+                            <span class="vcard__play" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V6l10 6-10 6Z"/></svg>
+                            </span>
+                        </div>
+                        <div class="vcard__body">
+                            <h4>Tayvan - Xitoy biqinidagi «porox bochkasi»</h4>
+                            <div class="vcard__meta"><span>Jahon</span><span class="sep">|</span><span>19:42</span></div>
+                        </div>
+                    </article>
+
+                    <article class="vcard">
+                        <div class="vcard__media">
+                            <img class="vcard__img" alt="Video" src="https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1200&q=70">
+                            <span class="vcard__play" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V6l10 6-10 6Z"/></svg>
+                            </span>
+                        </div>
+                        <div class="vcard__body">
+                            <h4>Trampga va’da bergan Putin, Tayvan atrofida mashg‘ulot boshlandi</h4>
+                            <div class="vcard__meta"><span>Jahon</span><span class="sep">|</span><span>16:06</span></div>
+                        </div>
+                    </article>
+
+                    <article class="vcard">
+                        <div class="vcard__media">
+                            <img class="vcard__img" alt="Video" src="https://images.unsplash.com/photo-1526948128573-703ee1aeb6fa?auto=format&fit=crop&w=1200&q=70">
+                            <span class="vcard__play" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V6l10 6-10 6Z"/></svg>
+                            </span>
+                        </div>
+                        <div class="vcard__body">
+                            <h4>LIVE: Katta kuchlar, kichik davlatlar va yo‘qolayotgan qoidalar | “Geosiyosat”</h4>
+                            <div class="vcard__meta"><span>Jahon</span><span class="sep">|</span><span>14:20</span></div>
+                        </div>
+                    </article>
+
+                    <article class="vcard">
+                        <div class="vcard__media">
+                            <img class="vcard__img" alt="Video" src="https://images.unsplash.com/photo-1523995462485-3d171b5c8fa9?auto=format&fit=crop&w=1200&q=70">
+                            <span class="vcard__play" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V6l10 6-10 6Z"/></svg>
+                            </span>
+                        </div>
+                        <div class="vcard__body">
+                            <h4>Ukrainlarning bayram «tilagi», namoz o‘qiyotgan falastinlikka hujum – hafta dayjesti</h4>
+                            <div class="vcard__meta"><span>Jahon</span><span class="sep">|</span><span>22:05</span></div>
+                        </div>
+                    </article>
+
+                    <article class="vcard">
+                        <div class="vcard__media">
+                            <img class="vcard__img" alt="Video" src="https://images.unsplash.com/photo-1590608897129-79da98d15969?auto=format&fit=crop&w=1200&q=70">
+                            <span class="vcard__play" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V6l10 6-10 6Z"/></svg>
+                            </span>
+                        </div>
+                        <div class="vcard__body">
+                            <h4>Videodayjest: haftaning asosiy voqealari</h4>
+                            <div class="vcard__meta"><span>O‘zbekiston</span><span class="sep">|</span><span>11:30</span></div>
+                        </div>
+                    </article>
+
+                    <article class="vcard">
+                        <div class="vcard__media">
+                            <img class="vcard__img" alt="Video" src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=70">
+                            <span class="vcard__play" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V6l10 6-10 6Z"/></svg>
+                            </span>
+                        </div>
+                        <div class="vcard__body">
+                            <h4>Intervyu: yangi qarorlar va rejalari</h4>
+                            <div class="vcard__meta"><span>Iqtisodiyot</span><span class="sep">|</span><span>10:10</span></div>
+                        </div>
+                    </article>
+
+                    <article class="vcard">
+                        <div class="vcard__media">
+                            <img class="vcard__img" alt="Video" src="https://images.unsplash.com/photo-1486427944299-d1955d23e34d?auto=format&fit=crop&w=1200&q=70">
+                            <span class="vcard__play" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V6l10 6-10 6Z"/></svg>
+                            </span>
+                        </div>
+                        <div class="vcard__body">
+                            <h4>Texnologiya: yangi qurilmalar va yangiliklar</h4>
+                            <div class="vcard__meta"><span>Texnologiya</span><span class="sep">|</span><span>09:20</span></div>
+                        </div>
+                    </article>
+
+                    <article class="vcard">
+                        <div class="vcard__media">
+                            <img class="vcard__img" alt="Video" src="https://images.unsplash.com/photo-1520975897033-4eab2c0b45b1?auto=format&fit=crop&w=1200&q=70">
+                            <span class="vcard__play" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M9 18V6l10 6-10 6Z"/></svg>
+                            </span>
+                        </div>
+                        <div class="vcard__body">
+                            <h4>Jamiyat: dolzarb mavzular bo‘yicha videolar</h4>
+                            <div class="vcard__meta"><span>Jamiyat</span><span class="sep">|</span><span>08:55</span></div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="sitefooter" aria-label="Footer">
+        <div class="container">
+            <div class="sitefooter__top">
+                <a class="brand" href="#" aria-label="KUN.UZ">
+                    <div class="brand__text"><span>KUN</span><span>.UZ</span></div>
+                </a>
+
+                <nav class="footnav" aria-label="Footer links">
+                    <a href="#">Sayt haqida</a>
+                    <a href="#">RSS</a>
+                    <a href="#">Aloqa</a>
+                    <a href="#">Reklama</a>
+                    <a href="#">Kun.uz jamoasi</a>
+                </nav>
+
+                <div class="footside">
+                    <div class="social" aria-label="Social">
+                        <a class="iconbtn" href="#" aria-label="Telegram">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10Z" stroke="currentColor" stroke-width="1.2"/><path d="M2 12h20" stroke="currentColor" stroke-width="1.2"/><path d="M12 2c2.761 2.739 4 6.169 4 10s-1.239 7.261-4 10c-2.761-2.739-4-6.169-4-10s1.239-7.261 4-10Z" stroke="currentColor" stroke-width="1.2"/></svg>
+                        </a>
+                        <a class="iconbtn" href="#" aria-label="Facebook">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 8h2V5h-2c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h2.3l.7-3H13V9c0-.6.4-1 1-1Z" fill="currentColor"/></svg>
+                        </a>
+                        <a class="iconbtn" href="#" aria-label="Twitter">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.7 7.2c.01.18.01.37.01.55 0 5.6-4.26 12.05-12.05 12.05-2.39 0-4.61-.7-6.48-1.9.33.04.66.05 1 .05 1.98 0 3.8-.67 5.24-1.8-1.85-.03-3.41-1.26-3.95-2.94.26.04.52.07.8.07.37 0 .74-.05 1.08-.14-1.93-.39-3.38-2.09-3.38-4.13v-.05c.56.31 1.2.5 1.88.52-1.13-.76-1.87-2.06-1.87-3.53 0-.78.21-1.5.58-2.13 2.06 2.53 5.14 4.19 8.6 4.36-.07-.31-.11-.64-.11-.97 0-2.35 1.9-4.25 4.25-4.25 1.22 0 2.32.52 3.1 1.34.96-.19 1.86-.54 2.67-1.03-.31.98-.98 1.8-1.85 2.32.86-.1 1.67-.33 2.43-.66-.57.85-1.29 1.6-2.12 2.2Z" fill="currentColor"/></svg>
+                        </a>
+                        <a class="iconbtn" href="#" aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor" stroke-width="1.6"/><path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" stroke-width="1.6"/><path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+                        </a>
+                    </div>
+
+                    <div class="stores" aria-label="Stores">
+                        <a class="storebtn" href="#" aria-label="App Store">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.6 13.1c0 2.4 2.1 3.2 2.1 3.2s-1.6 4.7-3.8 4.7c-1 0-1.7-.7-2.7-.7s-1.9.7-3 .7C7.3 21 5 16.7 5 13.5 5 10.4 7 8.7 9 8.7c1 0 1.9.7 2.6.7.7 0 1.8-.8 3.1-.8.5 0 2.2.04 3.3 1.7-.1.06-2 .9-2 2.8Zm-2.4-6.1c.8-1 1.4-2.4 1.2-3.8-1.2.05-2.7.8-3.6 1.8-.8.9-1.5 2.3-1.3 3.7 1.3.1 2.8-.7 3.7-1.7Z" fill="currentColor"/></svg>
+                            <span><small>Download on the</small>App Store</span>
+                        </a>
+                        <a class="storebtn" href="#" aria-label="Google Play">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.7 3.4c-.4.4-.6 1-.6 1.8v13.6c0 .8.2 1.4.6 1.8l8.4-8.4L4.7 3.4Z" fill="#34A853"/><path d="M14.3 13.4l2.3-2.3c.7-.7.7-1.6 0-2.3l-2.3-2.3-2.6 2.6 2.6 2.6Z" fill="#FBBC05"/><path d="M4.7 20.6c.5.5 1.2.5 2.2-.1l9.3-5.3-2.9-2.9-8.6 8.3Z" fill="#EA4335"/><path d="M6.9 3.5c-1-.6-1.7-.6-2.2-.1l8.4 8.4 2.9-2.9-9.1-5.4Z" fill="#4285F4"/></svg>
+                            <span><small>GET IT ON</small>Google Play</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sitefooter__bottom">
+                <p>“KUN.UZ” saytida e’lon qilingan materiallardan nusxa ko‘chirish, tarqatish va boshqa shakllarda foydalanish faqat tahririyat yozma roziligi bilan amalga oshirilishi mumkin.</p>
+                <p>Guvohnoma: №098. Berilgan sanasi: 22.06.2015-yil. MChJ. Tahririyat manzili: 100043, Toshkent shahri, Y. G‘ulomov ko‘chasi, 12-uy.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
